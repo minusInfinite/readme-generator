@@ -2,7 +2,6 @@
 import inquirer from "inquirer"
 import generateMarkdown from "./utils/generateMarkdown.js"
 import fs from "fs"
-import { type } from "os"
 
 // TODO: Create an array of questions for user input
 /** @type {inquirer.QuestionCollection} */
