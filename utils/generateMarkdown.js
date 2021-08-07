@@ -1,6 +1,29 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
-function renderLicenseBadge(license) {}
+function renderLicenseBadge(license) {
+    let licBadge = ""
+
+    switch (license) {
+        case "Apache License 2.0":
+            licBadge = "https://img.shields.io/badge/license-Apache-2.0-blue"
+            break
+        case 'BSD 3-Clause "New" or "Revised" license':
+            licBadge = "https://img.shields.io/badge/license-BSD-3-brightgreen"
+            break
+        case 'BSD 2-Clause "Simplified" or "FreeBSD" license':
+            licBadge = "https://img.shields.io/badge/license-BSD-2-brightgreen"
+            break
+        case "GNU General Public License 3.0 (GPL-3.0)":
+            licBadge = "https://img.shields.io/badge/license-GPL-3.0-blue"
+            break
+        case "MIT license":
+            licBadge = "https://img.shields.io/badge/license-MIT-brightgreen"
+            break
+        default:
+            break
+    }
+    return licBadge
+}
 
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
@@ -17,23 +40,11 @@ function renderLicenseLink(license) {
         case 'BSD 2-Clause "Simplified" or "FreeBSD" license':
             licUrl = "https://opensource.org/licenses/BSD-2-Clause"
             break
-        case "GNU General Public License (GPL)":
+        case "GNU General Public License 3.0 (GPL-3.0)":
             licUrl = "https://opensource.org/licenses/gpl-license"
-            break
-        case 'GNU Library or "Lesser" General Public License (LGPL)':
-            licUrl = "https://opensource.org/licenses/lgpl-license"
             break
         case "MIT license":
             licUrl = "https://opensource.org/licenses/MIT"
-            break
-        case "Mozilla Public License 2.0":
-            licUrl = "https://opensource.org/licenses/MPL-2.0"
-            break
-        case "Common Development and Distribution License":
-            licUrl = "https://opensource.org/licenses/CDDL-1.0"
-            break
-        case "Eclipse Public License version 2.0":
-            licUrl = "https://opensource.org/licenses/EPL-2.0"
             break
         default:
             break
@@ -66,6 +77,9 @@ function renderLicenseSection(license, holder) {
             break
         case 'BSD 3-Clause "New" or "Revised" license':
             licText = `
+            
+            BSD 3-Clause license            
+
             Copyright ${year} ${holder}
 
             Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -80,6 +94,9 @@ function renderLicenseSection(license, holder) {
             break
         case 'BSD 2-Clause "Simplified" or "FreeBSD" license':
             licText = `
+            
+            BSD 2-Clause license
+
             Copyright ${year} ${holder}
 
             Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -92,6 +109,8 @@ function renderLicenseSection(license, holder) {
             break
         case "GNU General Public License 3.0 (GPL-3.0)":
             licText = `
+            
+            GNU General Public License 3.0 (GPL-3.0)
             
             Copyright (C) ${year} ${holder}
         
@@ -110,7 +129,9 @@ function renderLicenseSection(license, holder) {
             break
         case "MIT license":
             licText = `
-            
+
+            MIT license
+
             Copyright ${year} ${holder}
 
             Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -127,8 +148,17 @@ function renderLicenseSection(license, holder) {
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-    return `# ${data.title}
+    let cTable = ""
+    if (data.contentTable) {
+    }
 
+    return `
+    # ${data.title}
+
+    ${data.description}
+
+    ${!data.contentTable ? "" : "## Table of Contents\n"}
+    
 `
 }
 

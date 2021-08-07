@@ -7,6 +7,11 @@ import fs from "fs"
 /** @type {inquirer.QuestionCollection} */
 const questions = [
     {
+        name: "username",
+        message: "Provide your Name or Username:",
+        type: "input",
+    },
+    {
         name: "title",
         message: "Provide the name of your project:",
         type: "input",
@@ -30,6 +35,28 @@ const questions = [
     {
         name: "contentTable",
         message: "Would you like a Table of Contents",
+        type: "confirm",
+    },
+    {
+        name: "selecTableItems",
+        message: "select you table items",
+        choices: [
+            {
+                name: "Installation",
+            },
+            {
+                name: "usage",
+            },
+            {
+                name: "examples",
+            },
+            {
+                name: "credits",
+            },
+            {
+                name: "licence",
+            },
+        ],
     },
     {
         name: "installation",
@@ -77,9 +104,6 @@ const questions = [
             'BSD 3-Clause "New" or "Revised" license',
             'BSD 2-Clause "Simplified" or "FreeBSD" license',
             "GNU General Public License 3.0 (GPL-3.0)",
-            "Mozilla Public License 2.0",
-            "Common Development and Distribution License",
-            "Eclipse Public License version 2.0",
         ],
         when(answers) {
             return answers.licence === true
