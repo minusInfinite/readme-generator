@@ -35,7 +35,9 @@ const questions = [
         name: "installation",
         message: "How is your project installed?",
         type: "input",
-        default: `Clone the repo\n \`\`\`git clone ${answers.url}.git\`\`\`\n Install packages via NPM\n \`\`\`npm install\`\`\`\n `,
+        default(answers) {
+            return `\nClone the repo\n\n \`\`\`git clone ${answers.url}.git\`\`\`\n\n Install packages via NPM\n\n \`\`\`npm install\`\`\`\n `
+        },
     },
     {
         name: "usage",
@@ -46,8 +48,11 @@ const questions = [
     {
         name: "examples",
         message:
-            "This will open an editor, allowing you to provide your examples",
+            "This will open an editor, allowing you to provide your examples:",
         type: "editor",
+        when(answers) {
+            return answers.usage === true
+        },
     },
     {
         name: "credits",
@@ -71,8 +76,7 @@ const questions = [
             "Apache License 2.0",
             'BSD 3-Clause "New" or "Revised" license',
             'BSD 2-Clause "Simplified" or "FreeBSD" license',
-            "GNU General Public License (GPL)",
-            'GNU Library or "Lesser" General Public License (LGPL)',
+            "GNU General Public License 3.0 (GPL-3.0)",
             "Mozilla Public License 2.0",
             "Common Development and Distribution License",
             "Eclipse Public License version 2.0",
@@ -93,7 +97,7 @@ function init() {
             return JSON.stringify(answers, null, " ")
         })
     }
-    userPrompt()
+    console.log(userPrompt())
 }
 
 // Function call to initialize app
