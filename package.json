@@ -1,22 +1,23 @@
 {
-  "name": "readme-generator",
-  "version": "0.0.1",
-  "description": "A Node.JS based CLI for creating a good README.MD file",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/minusInfinite/readme-generator.git"
-  },
-  "author": "minusinfinite <ashley@minusinfinite.net> (https://github.com/minusInfinite)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/minusInfinite/readme-generator/issues"
-  },
-  "homepage": "https://github.com/minusInfinite/readme-generator#readme",
-  "dependencies": {
-    "inquirer": "^8.1.2"
-  }
+    "name": "readme-generator",
+    "version": "0.0.1",
+    "description": "A Node.JS based CLI for creating a good README.MD file",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/minusInfinite/readme-generator.git"
+    },
+    "author": "minusinfinite <ashley@minusinfinite.net> (https://github.com/minusInfinite)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/minusInfinite/readme-generator/issues"
+    },
+    "homepage": "https://github.com/minusInfinite/readme-generator#readme",
+    "dependencies": {
+        "inquirer": "^8.1.2"
+    }
 }
