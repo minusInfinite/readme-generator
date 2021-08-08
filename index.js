@@ -2,6 +2,7 @@
 import inquirer from "inquirer"
 import generateMarkdown from "./utils/generateMarkdown.js"
 import fs from "fs"
+import util from "util"
 
 // TODO: Create an array of questions for user input
 /** @type {inquirer.QuestionCollection} */
@@ -10,11 +11,23 @@ const questions = [
         name: "username",
         message: "Provide your Name or Username:",
         type: "input",
+        validate(value) {
+            if (value === "") {
+                return "This is required"
+            }
+            return true
+        },
     },
     {
         name: "title",
         message: "Provide the name of your project:",
         type: "input",
+        validate(value) {
+            if (value === "") {
+                return "This is required"
+            }
+            return true
+        },
     },
     {
         name: "description",
@@ -31,6 +44,12 @@ const questions = [
         name: "url",
         message: "Project the GitHub Repository URL:",
         type: "input",
+        validate(value) {
+            if (value === "") {
+                return "This is required"
+            }
+            return true
+        },
     },
     {
         name: "contentTable",
@@ -38,47 +57,56 @@ const questions = [
         type: "confirm",
     },
     {
-        name: "selecTableItems",
+        name: "selTableItems",
         message: "select you table items",
+        type: "checkbox",
         choices: [
             {
                 name: "Installation",
             },
             {
-                name: "usage",
+                name: "Usage",
             },
             {
-                name: "examples",
+                name: "Examples",
             },
             {
-                name: "credits",
+                name: "Credits",
             },
             {
-                name: "licence",
+                name: "Licence",
             },
         ],
+        when(answers) {
+            return answers.contentTable === true
+        },
     },
     {
         name: "installation",
         message: "How is your project installed?",
-        type: "input",
+        type: "editor",
         default(answers) {
-            return `\nClone the repo\n\n \`\`\`git clone ${answers.url}.git\`\`\`\n\n Install packages via NPM\n\n \`\`\`npm install\`\`\`\n `
+            return `\nClone the repo\n\n\`\`\`termnal\ngit clone ${answers.url}.git\n\`\`\`\n\nInstall packages via NPM\n\n \`\`\`termnal\nnpm install\n\`\`\`\n`
         },
     },
     {
         name: "usage",
         message: "Do you want to include usage examples?",
-        type: "confirm",
-        default: false,
+        type: "editor",
+        default() {
+            return `\nUse the following NPM script\n\n\`\`\`termnal\nnpm start\n\`\`\``
+        },
     },
     {
         name: "examples",
         message:
             "This will open an editor, allowing you to provide your examples:",
         type: "editor",
+        default() {
+            return `\nin Markdown format provide links to a video, image or gif`
+        },
         when(answers) {
-            return answers.usage === true
+            return answers.selTableItems.includes("Examples")
         },
     },
     {
@@ -112,16 +140,23 @@ const questions = [
 ]
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    const makeFile = util.promisify(fs.writeFile)
+    makeFile(fileName, generateMarkdown(data))
+}
 
 // TODO: Create a function to initialize app
 function init() {
     const userPrompt = () => {
-        inquirer.prompt(questions).then((answers) => {
-            return JSON.stringify(answers, null, " ")
-        })
+        inquirer
+            .prompt(questions)
+            .then((answers) => {
+                writeToFile("README.MD", answers)
+            })
+            .then(() => console.log("README.md has been created"))
+            .catch((err) => console.error(err))
     }
-    console.log(userPrompt())
+    userPrompt()
 }
 
 // Function call to initialize app
