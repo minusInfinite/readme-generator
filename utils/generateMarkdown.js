@@ -168,10 +168,25 @@ ${
 ${data.description}
 
 ${!data.contentTable ? "" : `## Table of Contents\n\n${cTable}`}
-${!data.installation ? "" : `## Installation\n\n${data.installation}`}
+${!data.installation ? "" : `## Installation\n\n${data.installation}\n`}
 ${!data.usage ? "" : `## Usage\n\n${data.usage}\n`}
-${!data.example ? "" : `## Examples\n\n${data.example}\n`}
-${!data.credits ? "" : `## Credits\n\n${data.credits}\n`}
+${!data.examples ? "" : `## Examples\n\n${data.examples}\n`}
+${
+    !data.credits
+        ? ""
+        : data.credits.includes(",")
+        ? `## Credits\n\n${data.credits.replace(/,/g, "\n\n")}\n`
+        : `## Credits\n\n${data.credits}\n`
+}
+${!data.contributions ? "" : `## Contributions\n\n${data.contributions}\n`}
+${!data.tests ? "" : `## Testing\n\n${data.tests}\n`}
+
+## Questions
+
+Github: @${data.username}
+
+[Email](mailto://${data.email})
+
 ${
     !data.licence
         ? ""

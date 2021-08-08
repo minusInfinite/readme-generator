@@ -9,11 +9,24 @@ import util from "util"
 const questions = [
     {
         name: "username",
-        message: "Provide your Name or Username:",
+        message: "Provide your Github Username:",
         type: "input",
         validate(value) {
             if (value === "") {
                 return "This is required"
+            }
+            return true
+        },
+    },
+    {
+        name: "email",
+        message: "Provide your email address:",
+        type: "input",
+        validate(value) {
+            if (value === "") {
+                return "This is required"
+            } else if (!value.includes("@")) {
+                return "please enter a valid email address"
             }
             return true
         },
@@ -74,6 +87,15 @@ const questions = [
                 name: "Credits",
             },
             {
+                name: "Contributions",
+            },
+            {
+                name: "Testing",
+            },
+            {
+                name: "Questions",
+            },
+            {
                 name: "Licence",
             },
         ],
@@ -86,12 +108,12 @@ const questions = [
         message: "How is your project installed?",
         type: "editor",
         default(answers) {
-            return `\nClone the repo\n\n\`\`\`termnal\ngit clone ${answers.url}.git\n\`\`\`\n\nInstall packages via NPM\n\n \`\`\`termnal\nnpm install\n\`\`\`\n`
+            return `\nClone the repo\n\n\`\`\`termnal\ngit clone ${answers.url}.git\n\`\`\`\n\nInstall packages via NPM\n\n\`\`\`termnal\nnpm install\n\`\`\`\n`
         },
     },
     {
         name: "usage",
-        message: "Do you want to include usage examples?",
+        message: "How you run you project once installed?",
         type: "editor",
         default() {
             return `\nUse the following NPM script\n\n\`\`\`termnal\nnpm start\n\`\`\``
@@ -99,20 +121,34 @@ const questions = [
     },
     {
         name: "examples",
-        message:
-            "This will open an editor, allowing you to provide your examples:",
+        message: "Do you want to add any examples of your project in action?:",
         type: "editor",
         default() {
             return `\nin Markdown format provide links to a video, image or gif`
         },
-        when(answers) {
-            return answers.selTableItems.includes("Examples")
+    },
+    {
+        name: "contributions",
+        message:
+            "If you want others to contribute to your project how would they?:",
+        type: "editor",
+        default() {
+            return `\nIf you would like to contribute to this project please fork this repository and open a PR`
+        },
+    },
+    {
+        name: "tests",
+        message:
+            "Do you have a process for writing unit-tests for your project?:",
+        type: "editor",
+        default() {
+            return `\nUnit-test are yet to be implemented\n`
         },
     },
     {
         name: "credits",
         message:
-            "Provide any credits or links to third-party resorces required",
+            "Provide any credits for third-party resorces required (comma seperated):",
         type: "input",
     },
     {
