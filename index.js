@@ -3,6 +3,7 @@ import inquirer from "inquirer"
 import generateMarkdown from "./utils/generateMarkdown.js"
 import fs from "fs"
 import util from "util"
+import { type } from "os"
 
 // TODO: Create an array of questions for user input
 /** @type {inquirer.QuestionCollection} */
@@ -173,6 +174,12 @@ const questions = [
             return answers.licence === true
         },
     },
+    {
+        name: "filename",
+        message: "Name your README file?",
+        type: "input",
+        default: "README.md",
+    },
 ]
 
 // TODO: Create a function to write README file
@@ -187,7 +194,7 @@ function init() {
         inquirer
             .prompt(questions)
             .then((answers) => {
-                writeToFile("README.MD", answers)
+                writeToFile(answers.filename, answers)
             })
             .then(() => console.log("README.md has been created"))
             .catch((err) => console.error(err))
